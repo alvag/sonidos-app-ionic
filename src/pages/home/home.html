@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="primary">
         <ion-title>
             Sonidos App
         </ion-title>
@@ -10,12 +10,12 @@
 
     <ion-list>
 
-        <ion-item>
+        <ion-item *ngFor="let animal of animales">
             <ion-avatar item-left>
-                <img src="assets/animales/caballo.png" alt="">
+                <img [src]="animal.imagen" alt="">
             </ion-avatar>
 
-            <h2>Caballo</h2>
+            <h2>{{animal.nombre}}</h2>
         </ion-item>
 
     </ion-list>
