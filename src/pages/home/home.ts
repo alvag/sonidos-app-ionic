@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Refresher } from 'ionic-angular';
 import { ANIMALES } from '../../data/data.animales';
 import { Animal } from '../../interfaces/animal';
 
@@ -14,12 +14,11 @@ export class HomePage {
     timeOut: any;
     audio = new Audio();
 
-    constructor( public navCtrl: NavController ) {
+    constructor() {
         this.animales = ANIMALES.slice( 0 );
     }
 
-    reproducir( animal: Animal ): void {
-
+    reproducir( animal: Animal ) {
         this.pausar( animal );
 
         if ( animal.reproduciendo ) {
@@ -38,11 +37,9 @@ export class HomePage {
             animal.reproduciendo = false;
 
         }, animal.duracion * 1000 );
-
-
     }
 
-    pausar( animal: Animal ): void {
+    pausar( animal: Animal ) {
         clearTimeout( this.timeOut );
         this.audio.pause();
         this.audio.currentTime = 0;
@@ -54,7 +51,15 @@ export class HomePage {
         }
     }
 
-    borrarAnimal( i ): void {
+    borrarAnimal( i ) {
         this.animales.splice( i, 1 );
     }
+
+    recargarData( refresher: Refresher ) {
+        setTimeout( () => {
+            this.animales = ANIMALES.slice( 0 );
+            refresher.complete();
+        }, 2000 );
+    }
+
 }
