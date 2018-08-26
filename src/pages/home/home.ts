@@ -53,4 +53,8 @@ export class HomePage {
             }
         }
     }
+
+    borrarAnimal( i ): void {
+        this.animales.splice( i, 1 );
+    }
 }
