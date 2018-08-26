@@ -1,11 +1,14 @@
 {
-  "rules": {
-    "no-duplicate-variable": true,
-    "no-unused-variable": [
-      true
+    "rules": {
+        "no-duplicate-variable": true,
+        "no-unused-variable": [
+            true
+        ],
+        "quotemark": {
+            "options": "single"
+        }
+    },
+    "rulesDirectory": [
+        "node_modules/tslint-eslint-rules/dist/rules"
     ]
-  },
-  "rulesDirectory": [
-    "node_modules/tslint-eslint-rules/dist/rules"
-  ]
 }
