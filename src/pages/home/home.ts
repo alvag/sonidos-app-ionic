@@ -11,21 +11,46 @@ import { Animal } from '../../interfaces/animal';
 export class HomePage {
 
     animales: Animal[] = [];
+    timeOut: any;
+    audio = new Audio();
 
     constructor( public navCtrl: NavController ) {
         this.animales = ANIMALES.slice( 0 );
     }
 
     reproducir( animal: Animal ): void {
-        console.log( animal );
-        let audio = new Audio();
-        audio.src = animal.audio;
 
-        audio.load();
-        audio.play();
+        this.pausar( animal );
+
+        if ( animal.reproduciendo ) {
+            animal.reproduciendo = false;
+            return;
+        }
+
+        this.audio.src = animal.audio;
+
+        this.audio.load();
+        this.audio.play();
 
         animal.reproduciendo = true;
 
-        setTimeout( () => animal.reproduciendo = false, animal.duracion * 1000 );
+        this.timeOut = setTimeout( () => {
+            animal.reproduciendo = false;
+
+        }, animal.duracion * 1000 );
+
+
+    }
+
+    pausar( animal: Animal ): void {
+        clearTimeout( this.timeOut );
+        this.audio.pause();
+        this.audio.currentTime = 0;
+
+        for ( let a of this.animales ) {
+            if ( a.nombre !== animal.nombre ) {
+                a.reproduciendo = false;
+            }
+        }
     }
 }
